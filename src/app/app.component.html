@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+
+	Theme by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+
+-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marvel Explorer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+  </head>
+	<body class="is-preload">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+		<!-- Wrapper -->
+    <div id="wrapper">
+
+      <!-- Header -->
+        <header id="header">
+          <h1><strong>Marvel Explorer</strong> Assessement by Giaola</h1>
+          <nav>Antonios Krinis</nav>
+        </header>
+        <div id="main">
+          <!-- infinite scroll div -->
+          <div
+          class="search-results"
+          infiniteScroll
+          [infiniteScrollDistance]="2"
+          [infiniteScrollThrottle]="50"
+          (scrolled)="onScrollDown()"
+          (scrolledUp)="onScrollUp()"
+          >
+            <div *ngFor="let comic of comics">
+              <article class="thumb">
+                <div *ngIf="comic['images'][0] !== undefined; else nothumb">
+                  <a href="{{comic['images'][0]['path']}}.jpg" class="image"><img src="{{comic['thumbnail']['path']}}.jpg" alt="{{comic['title']}}" /></a>
+                </div>
+                <ng-template #nothumb>  
+                  <img src="../assets/images/nothumb.png" alt="{{comic['title']}}" />
+                </ng-template>
+                <div class="info">
+                  <h2 *ngIf="comic['title'] !== undefined">{{comic['title']}}</h2>
+                  <p><span>Issue Number: </span><span *ngIf="comic['issueNumber'] !== undefined">{{comic['issueNumber']}}</span></p>
+                  <p><span>Price: </span><span *ngIf="comic['prices'][0]['price'] !== undefined">{{comic['prices'][0]['price']}}&euro;</span></p>
+                </div>
+              </article>
+            </div>
+          </div>
+          <!-- infinity scroll div end -->
+           <!-- sinner -->
+           <ngx-spinner
+           bdOpacity = 0.9
+           bdColor = "#333"
+           size = "medium"
+           color = "#fff"
+           type = "ball-atom"
+           [fullScreen] = "true"
+           >
+           <p style="color: white" > Loading... </p>
+           </ngx-spinner>
+        </div>
+    </div>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/jquery.poptrox.min.js"></script>
+    <script src="../assets/js/browser.min.js"></script>
+    <script src="../assets/js/breakpoints.min.js"></script>
+    <script src="../assets/js/util.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>
+<router-outlet></router-outlet>
